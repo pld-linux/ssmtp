@@ -10,9 +10,9 @@ Source0:	%{name}_%{version}.tar.gz
 Patch0:		%{name}-nonsl.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
-Provides:       smtpdaemon
+Provides:	smtpdaemon
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Obsoletes:      smtpdaemon
+Obsoletes:	smtpdaemon
 
 %description
 A secure, effective and simple way of getting mail off a system to
