@@ -11,8 +11,18 @@ Patch0:		%{name}-nonsl.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 Provides:	smtpdaemon
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	courier
+Obsoletes:	exim
+Obsoletes:	masqmail
+Obsoletes:	omta
+Obsoletes:	qmail
+Obsoletes:	sendmail
+Obsoletes:	sendmail-cf
+Obsoletes:	sendmail-doc
+Obsoletes:	smail
 Obsoletes:	smtpdaemon
+Obsoletes:	zmailer
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 A secure, effective and simple way of getting mail off a system to
@@ -48,12 +58,12 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8,%{_sysconfdir}/mail,%{_libdir}}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8,%{_sysconfdir}/mail,%{_prefix}/lib}
 
 install ssmtp $RPM_BUILD_ROOT%{_sbindir}/ssmtp
 install ssmtp.8 $RPM_BUILD_ROOT%{_mandir}/man8/ssmtp.8
 install ssmtp.conf revaliases $RPM_BUILD_ROOT%{_sysconfdir}/mail
-ln -sf %{_sbindir}/ssmtp $RPM_BUILD_ROOT%{_libdir}/sendmail
+ln -sf %{_sbindir}/ssmtp $RPM_BUILD_ROOT%{_prefix}/lib/sendmail
 ln -sf ssmtp $RPM_BUILD_ROOT%{_sbindir}/sendmail
 
 %clean
@@ -63,7 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README TLS
 %attr(755,root,root) %{_sbindir}/*
-%attr(755,root,root) %{_libdir}/sendmail
+%attr(755,root,root) %{_prefix}/lib/sendmail
 %dir %{_sysconfdir}/mail
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/mail/ssmtp.conf
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/mail/revaliases
