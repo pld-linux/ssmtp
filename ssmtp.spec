@@ -2,7 +2,7 @@ Summary:	Extremely simple MTA to get mail off the system to a mail hub
 Summary(pl):	Skrajnie prosty MTA do przekazywania poczty z systemu do huba
 Name:		ssmtp
 Version:	2.60.12
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://http.us.debian.org/debian/pool/main/s/ssmtp/%{name}_%{version}.tar.gz
