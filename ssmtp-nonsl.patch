@@ -1,0 +1,10 @@
+--- ssmtp-2.60/configure.in~	2002-09-27 12:35:42.000000000 +0000
++++ ssmtp-2.60/configure.in	2003-06-25 16:42:29.000000000 +0000
+@@ -23,7 +23,6 @@
+ AC_STRUCT_TM
+ 
+ dnl Checks for libraries.
+-AC_CHECK_LIB(nsl, gethostname)
+ AC_CHECK_LIB(socket, socket)
+ 
+ dnl Checks for library functions.
