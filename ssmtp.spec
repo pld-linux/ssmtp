@@ -64,6 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README TLS
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_libdir}/sendmail
+%dir %{_sysconfdir}/mail
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/mail/ssmtp.conf
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/mail/revaliases
 %{_mandir}/man8/ssmtp*
