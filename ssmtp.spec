@@ -1,7 +1,7 @@
 Summary:	Extremely simple MTA to get mail off the system to a mail hub
 Name:		ssmtp
 Version:	2.60.3
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Networking/Daemons
 Source0:	%{name}_%{version}.tar.gz
@@ -24,18 +24,24 @@ on a mail hub with a system administrator.
 
 %build
 rm -f missing
+
 %{__aclocal}
 %{__autoconf}
 %configure
-%{__make} SSMTPCONFDIR=/etc/ssmtp
+
+%{__make} \
+	SSMTPCONFDIR=/etc/ssmtp
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -D ssmtp $RPM_BUILD_ROOT/%{_sbindir}/ssmtp
-install -D ssmtp.8 $RPM_BUILD_ROOT/%{_mandir}/man8/ssmtp.8
-install -D ssmtp.conf $RPM_BUILD_ROOT%{_sysconfdir}/ssmtp/ssmtp.conf
-install revaliases $RPM_BUILD_ROOT%{_sysconfdir}/ssmtp/
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8,%{_sysconfdir}/ssmtp,%{_libdir}}
+
+install ssmtp $RPM_BUILD_ROOT/%{_sbindir}/ssmtp
+install ssmtp.8 $RPM_BUILD_ROOT/%{_mandir}/man8/ssmtp.8
+install ssmtp.conf revaliases $RPM_BUILD_ROOT%{_sysconfdir}/ssmtp
+ln -sf %{_sbindir}/ssmtp $RPM_BUILD_ROOT%{_libdir}/sendmail
+ln -sf %{_sbindir}/ssmtp $RPM_BUILD_ROOT%{_sbindir}/sendmail
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -44,6 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README TLS
 %attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_libdir}/sendmail
 %attr( 644,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ssmtp/ssmtp.conf
 %attr( 644,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ssmtp/revaliases
 
