@@ -2,7 +2,7 @@ Summary:	Extremely simple MTA to get mail off the system to a mail hub
 Summary(pl):	Skrajnie prosty MTA do przekazywania poczty z systemu do huba
 Name:		ssmtp
 Version:	2.60.3
-Release:	0.2
+Release:	0.3
 License:	GPL
 Group:		Networking/Daemons
 Source0:	%{name}_%{version}.tar.gz
@@ -44,15 +44,15 @@ rm -f missing
 %configure
 
 %{__make} \
-	SSMTPCONFDIR=/etc/ssmtp
+	SSMTPCONFDIR=/etc/mail
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8,%{_sysconfdir}/ssmtp,%{_libdir}}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8,%{_sysconfdir}/mail,%{_libdir}}
 
 install ssmtp $RPM_BUILD_ROOT%{_sbindir}/ssmtp
 install ssmtp.8 $RPM_BUILD_ROOT%{_mandir}/man8/ssmtp.8
-install ssmtp.conf revaliases $RPM_BUILD_ROOT%{_sysconfdir}/ssmtp
+install ssmtp.conf revaliases $RPM_BUILD_ROOT%{_sysconfdir}/mail
 ln -sf %{_sbindir}/ssmtp $RPM_BUILD_ROOT%{_libdir}/sendmail
 ln -sf ssmtp $RPM_BUILD_ROOT%{_sbindir}/sendmail
 
@@ -64,6 +64,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc README TLS
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_libdir}/sendmail
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ssmtp/ssmtp.conf
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ssmtp/revaliases
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/mail/ssmtp.conf
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/mail/revaliases
 %{_mandir}/man8/ssmtp*
