@@ -1,4 +1,5 @@
 Summary:	Extremely simple MTA to get mail off the system to a mail hub
+Summary(pl):	Skrajnie prosty MTA do przekazywania poczty z systemu do huba
 Name:		ssmtp
 Version:	2.60.3
 Release:	0.2
@@ -7,6 +8,8 @@ Group:		Networking/Daemons
 Source0:	%{name}_%{version}.tar.gz
 #Source0-md5:	b9b1c07f513ff2b46ae8a09eaf3e04e5
 Patch0:		%{name}-nonsl.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -18,13 +21,22 @@ Extremely easy configuration. WARNING: the above is all it does; it
 does not receive mail, expand aliases or manage a queue. That belongs
 on a mail hub with a system administrator.
 
+%description -l pl
+Bezpieczny, efektywny i prosty sposób przekazywania poczty z systemu
+do w³asnego huba pocztowego. Nie zawiera suidowych binarek ani innych
+niebezpiecznych rzeczy - nie ma spoola do wpychania czegokolwiek ani
+demonów dzia³aj±cych w tle. Poczta jest po prostu przekazywana do
+zewnêtrznego, skonfigurowanego serwera pocztowego. Skrajnie prosta
+konfiguracja. UWAGA: powy¿sze to wszystko, co robi ten program; nie
+odbiera poczty, nie rozwija aliasów ani nie zarz±dza kolejk±. To
+nale¿y do huba pocztowego z w³asnym administratorem.
+
 %prep
 %setup -q -n %{name}-2.60
 %patch0 -p1
 
 %build
 rm -f missing
-
 %{__aclocal}
 %{__autoconf}
 %configure
@@ -34,14 +46,13 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8,%{_sysconfdir}/ssmtp,%{_libdir}}
 
-install ssmtp $RPM_BUILD_ROOT/%{_sbindir}/ssmtp
-install ssmtp.8 $RPM_BUILD_ROOT/%{_mandir}/man8/ssmtp.8
+install ssmtp $RPM_BUILD_ROOT%{_sbindir}/ssmtp
+install ssmtp.8 $RPM_BUILD_ROOT%{_mandir}/man8/ssmtp.8
 install ssmtp.conf revaliases $RPM_BUILD_ROOT%{_sysconfdir}/ssmtp
 ln -sf %{_sbindir}/ssmtp $RPM_BUILD_ROOT%{_libdir}/sendmail
-ln -sf %{_sbindir}/ssmtp $RPM_BUILD_ROOT%{_sbindir}/sendmail
+ln -sf ssmtp $RPM_BUILD_ROOT%{_sbindir}/sendmail
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -51,7 +62,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc README TLS
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_libdir}/sendmail
-%attr( 644,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ssmtp/ssmtp.conf
-%attr( 644,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ssmtp/revaliases
-
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ssmtp/ssmtp.conf
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ssmtp/revaliases
 %{_mandir}/man8/ssmtp*
