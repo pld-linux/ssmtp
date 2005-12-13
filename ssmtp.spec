@@ -75,6 +75,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_prefix}/lib/sendmail
 %dir %{_sysconfdir}/mail
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/mail/ssmtp.conf
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/mail/revaliases
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mail/ssmtp.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mail/revaliases
 %{_mandir}/man8/ssmtp*
