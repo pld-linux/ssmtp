@@ -1,5 +1,5 @@
 Summary:	Extremely simple MTA to get mail off the system to a mail hub
-Summary(pl.UTF-8):   Skrajnie prosty MTA do przekazywania poczty z systemu do huba
+Summary(pl.UTF-8):	Skrajnie prosty MTA do przekazywania poczty z systemu do huba
 Name:		ssmtp
 Version:	2.61
 Release:	1
