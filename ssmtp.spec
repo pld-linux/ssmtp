@@ -1,5 +1,5 @@
 Summary:	Extremely simple MTA to get mail off the system to a mail hub
-Summary(pl):	Skrajnie prosty MTA do przekazywania poczty z systemu do huba
+Summary(pl.UTF-8):   Skrajnie prosty MTA do przekazywania poczty z systemu do huba
 Name:		ssmtp
 Version:	2.61
 Release:	1
@@ -33,15 +33,15 @@ Extremely easy configuration. WARNING: the above is all it does; it
 does not receive mail, expand aliases or manage a queue. That belongs
 on a mail hub with a system administrator.
 
-%description -l pl
-Bezpieczny, efektywny i prosty sposób przekazywania poczty z systemu
-do w³asnego huba pocztowego. Nie zawiera suidowych binarek ani innych
+%description -l pl.UTF-8
+Bezpieczny, efektywny i prosty sposÃ³b przekazywania poczty z systemu
+do wÅ‚asnego huba pocztowego. Nie zawiera suidowych binarek ani innych
 niebezpiecznych rzeczy - nie ma spoola do wpychania czegokolwiek ani
-demonów dzia³aj±cych w tle. Poczta jest po prostu przekazywana do
-zewnêtrznego, skonfigurowanego serwera pocztowego. Skrajnie prosta
-konfiguracja. UWAGA: powy¿sze to wszystko, co robi ten program; nie
-odbiera poczty, nie rozwija aliasów ani nie zarz±dza kolejk±. To
-nale¿y do huba pocztowego z w³asnym administratorem.
+demonÃ³w dziaÅ‚ajÄ…cych w tle. Poczta jest po prostu przekazywana do
+zewnÄ™trznego, skonfigurowanego serwera pocztowego. Skrajnie prosta
+konfiguracja. UWAGA: powyÅ¼sze to wszystko, co robi ten program; nie
+odbiera poczty, nie rozwija aliasÃ³w ani nie zarzÄ…dza kolejkÄ…. To
+naleÅ¼y do huba pocztowego z wÅ‚asnym administratorem.
 
 %prep
 %setup -q
