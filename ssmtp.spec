@@ -4,7 +4,7 @@ Name:		ssmtp
 Version:	2.62
 Release:	2
 License:	GPL
-Group:		Networking/Daemons
+Group:		Networking/Daemons/SMTP
 Source0:	http://http.us.debian.org/debian/pool/main/s/ssmtp/%{name}_%{version}.orig.tar.gz
 # Source0-md5:	257ac04e62ab7e3616e220333a1140cb
 Patch0:		%{name}-nonsl.patch
