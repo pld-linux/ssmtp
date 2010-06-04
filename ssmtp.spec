@@ -28,10 +28,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 A secure, effective and simple way of getting mail off a system to
 your mail hub. It contains no suid-binaries or other dangerous things
 - no mail spool to poke around in, and no daemons running in the
-background. Mail is simply forwarded to the configured mailhost.
-Extremely easy configuration. WARNING: the above is all it does; it
-does not receive mail, expand aliases or manage a queue. That belongs
-on a mail hub with a system administrator.
+  background. Mail is simply forwarded to the configured mailhost.
+  Extremely easy configuration. WARNING: the above is all it does; it
+  does not receive mail, expand aliases or manage a queue. That belongs
+  on a mail hub with a system administrator.
 
 %description -l pl.UTF-8
 Bezpieczny, efektywny i prosty sposób przekazywania poczty z systemu
@@ -44,7 +44,7 @@ odbiera poczty, nie rozwija aliasów ani nie zarządza kolejką. To
 należy do huba pocztowego z własnym administratorem.
 
 %prep
-%setup -q 
+%setup -q
 %patch0 -p1
 
 %build
@@ -54,7 +54,7 @@ rm -f missing
 %configure
 
 %{__make} \
-	SSMTPCONFDIR=/etc/mail
+	SSMTPCONFDIR=%{_sysconfdir}/mail
 
 %install
 rm -rf $RPM_BUILD_ROOT
