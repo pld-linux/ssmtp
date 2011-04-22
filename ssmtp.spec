@@ -2,7 +2,7 @@ Summary:	Extremely simple MTA to get mail off the system to a mail hub
 Summary(pl.UTF-8):	Skrajnie prosty MTA do przekazywania poczty z systemu do huba
 Name:		ssmtp
 Version:	2.64
-Release:	1
+Release:	2
 License:	GPL
 Group:		Networking/Daemons/SMTP
 Source0:	http://http.us.debian.org/debian/pool/main/s/ssmtp/%{name}_%{version}.orig.tar.bz2
@@ -10,6 +10,7 @@ Source0:	http://http.us.debian.org/debian/pool/main/s/ssmtp/%{name}_%{version}.o
 Patch0:		%{name}-nonsl.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	openssl-devel
 Provides:	smtpdaemon
 Obsoletes:	courier
 Obsoletes:	exim
@@ -51,7 +52,8 @@ należy do huba pocztowego z własnym administratorem.
 rm -f missing
 %{__aclocal}
 %{__autoconf}
-%configure
+%configure \
+	--enable-ssl
 
 %{__make} \
 	SSMTPCONFDIR=%{_sysconfdir}/mail
