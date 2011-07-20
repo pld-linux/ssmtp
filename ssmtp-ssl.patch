@@ -1,0 +1,22 @@
+--- ssmtp-2.64.orig/configure	2011-07-20 10:22:04.000000000 +0200
++++ ssmtp-2.64/configure	2011-07-20 10:39:43.391200792 +0200
+@@ -3712,7 +3712,7 @@
+ if test x$enableval = xyes ; then
+ 	$as_echo "#define HAVE_SSL 1" >>confdefs.h
+ 
+-	LIBS="$LIBS -lssl"
++	LIBS="$LIBS -lssl -lcrypto"
+ fi
+ enableval=""
+ 
+--- ssmtp-2.64.orig/configure.in	2011-07-20 10:22:03.000000000 +0200
++++ ssmtp-2.64/configure.in	2011-07-20 10:39:53.318295286 +0200
+@@ -51,7 +51,7 @@
+ [  --enable-ssl           support for secure connection to mail server])
+ if test x$enableval = xyes ; then
+ 	AC_DEFINE(HAVE_SSL)
+-	LIBS="$LIBS -lssl"
++	LIBS="$LIBS -lssl -lcrypto"
+ fi
+ enableval=""
+ 
