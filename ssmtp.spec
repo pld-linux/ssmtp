@@ -87,13 +87,13 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man{5,8},%{_sysconfdir}/mail,%{_prefix}/lib}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man{5,8},%{_sysconfdir}/mail,/usr/lib}
 
 install ssmtp $RPM_BUILD_ROOT%{_sbindir}/ssmtp
 install ssmtp.8 $RPM_BUILD_ROOT%{_mandir}/man8/ssmtp.8
 install ssmtp.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5/ssmtp.conf.5
 install ssmtp.conf revaliases $RPM_BUILD_ROOT%{_sysconfdir}/mail
-ln -sf %{_sbindir}/ssmtp $RPM_BUILD_ROOT%{_prefix}/lib/sendmail
+ln -sf %{_sbindir}/ssmtp $RPM_BUILD_ROOT/usr/lib/sendmail
 ln -sf ssmtp $RPM_BUILD_ROOT%{_sbindir}/sendmail
 
 %clean
@@ -102,7 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/sendmail
-%attr(755,root,root) %{_prefix}/lib/sendmail
+%attr(755,root,root) /usr/lib/sendmail
 
 %files base
 %defattr(644,root,root,755)
