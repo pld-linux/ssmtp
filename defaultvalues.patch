@@ -1,0 +1,11 @@
+--- ssmtp-2.64/ssmtp.conf.orig	2008-02-29 03:50:15.000000000 +0100
++++ ssmtp-2.64/ssmtp.conf	2021-11-26 15:50:46.285946096 +0100
+@@ -30,6 +30,8 @@
+ 
+ # Use SSL/TLS to send secure messages to server.
+ #UseTLS=YES
++#IMPORTANT: The following line is mandatory for TLS authentication
++TLS_CA_File=/etc/ssl/certs/ca-certificates.crt
+ 
+ # Use SSL/TLS certificate to authenticate against smtp host.
+ #UseTLSCert=YES
