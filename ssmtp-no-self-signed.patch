@@ -1,0 +1,34 @@
+Upstream accepts certificates from unknown issuers unless AllowSelfSigned=NO is set,
+which leaves the default STARTTLS/TLS connection open to MITM; verify by default.
+
+diff -urNp ssmtp-2.66.orig/ssmtp.c ssmtp-2.66/ssmtp.c
+--- ssmtp-2.66.orig/ssmtp.c	2026-02-21 18:34:02.000000000 +0100
++++ ssmtp-2.66/ssmtp.c	2026-10-29 02:59:30.386856810 +0100
+@@ -55,7 +55,7 @@ bool_t use_cert = False;		/* Use a certi
+ bool_t use_oldauth = False;		/* use old AUTH LOGIN username style */
+ bool_t verify_peer = True;		/* Verify peer certificate. */
+ bool_t verify_peer_name = True;	/* Verify hostname in the certificate match server connected */
+-bool_t allow_self_signed = True;	/* Accept self signed certificates. */
++bool_t allow_self_signed = False;	/* Accept self signed certificates. */
+ 
+ #define ARPADATE_LENGTH 32		/* Current date in RFC format */
+ char arpadate[ARPADATE_LENGTH];
+diff -urNp ssmtp-2.66.orig/ssmtp.conf.5 ssmtp-2.66/ssmtp.conf.5
+--- ssmtp-2.66.orig/ssmtp.conf.5	2026-02-21 18:34:02.000000000 +0100
++++ ssmtp-2.66/ssmtp.conf.5	2026-10-29 02:59:30.397401087 +0100
+@@ -69,6 +69,7 @@ Specifies whether ssmtp to verify peer(s
+ .Pp
+ .It AllowSelfSigned
+ Specifies whether ssmtp to allow self signed certificates.
++The default is NO.
+ .Pp
+ .It Cm AuthUser
+ The user name to use for SMTP AUTH.
+diff -urNp ssmtp-2.66.orig/TLS ssmtp-2.66/TLS
+--- ssmtp-2.66.orig/TLS	2026-02-21 18:34:02.000000000 +0100
++++ ssmtp-2.66/TLS	2026-10-29 02:59:30.400815685 +0100
+@@ -40,3 +40,4 @@ Set this to yes to make ssmtp to verify
+ 
+ AllowSelfSigned=YES/NO
+ Set this to yes to make ssmtp to allow self signed certificates.
++Default: NO.

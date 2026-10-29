@@ -1,0 +1,62 @@
+Unbalanced parentheses or an empty address in To:/From: read and write outside
+the heap buffer in addr_parse()/strip_post_ws()/rcpt_save().
+https://github.com/Project-OSS-Revival/ssmtp/issues/10 (Debian #623856)
+
+diff -urNp ssmtp-2.66.orig/ssmtp.c ssmtp-2.66/ssmtp.c
+--- ssmtp-2.66.orig/ssmtp.c	2026-02-21 18:34:02.000000000 +0100
++++ ssmtp-2.66/ssmtp.c	2026-10-29 03:00:23.598328151 +0100
+@@ -281,7 +281,7 @@ char *strip_post_ws(char *str)
+ 	char *p;
+ 
+ 	p = (str + strlen(str));
+-	while(isspace(*--p)) {
++	while(p != str && isspace(*--p)) {
+ 		*p = 0;
+ 	}
+ 
+@@ -320,7 +320,7 @@ char *addr_parse(char *str)
+ 
+ 	q = strip_pre_ws(p);
+ 	if(*q == '(') {
+-		while((*q++ != ')'));
++		while(*q && *q++ != ')');
+ 	}
+ 	p = strip_pre_ws(q);
+ 
+@@ -330,8 +330,11 @@ char *addr_parse(char *str)
+ 
+ 	q = strip_post_ws(p);
+ 	if(*q == ')') {
+-		while((*--q != '('));
+ 		*q = 0;
++		while(q != p && *--q != '(');
++		if(*q == '(') {
++			*q = 0;
++		}
+ 	}
+ 	(void)strip_post_ws(p);
+ 
+@@ -531,6 +534,11 @@ void rcpt_save(char *str)
+ {
+ 	char *p;
+ 
++	/* Ignore missing usernames */
++	if(*str == 0) {
++		return;
++	}
++
+ # if 1
+ 	/* Horrible botch for group stuff */
+ 	p = str;
+@@ -545,11 +553,6 @@ void rcpt_save(char *str)
+ 	(void)fprintf(stderr, "*** rcpt_save(): str = [%s]\n", str);
+ #endif
+ 
+-	/* Ignore missing usernames */
+-	if(*str == 0) {
+-		return;
+-	}
+-
+ 	if((rt->string = strdup(str)) == (char *)NULL) {
+ 		die("rcpt_save() -- strdup() failed");
+ 	}

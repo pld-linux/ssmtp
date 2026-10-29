@@ -1,20 +1,15 @@
 Summary:	Extremely simple MTA to get mail off the system to a mail hub
 Summary(pl.UTF-8):	Skrajnie prosty MTA do przekazywania poczty z systemu do huba
 Name:		ssmtp
-Version:	2.64
-Release:	9
+Version:	2.66
+Release:	1
 License:	GPL
 Group:		Networking/Daemons/SMTP
-Source0:	http://http.us.debian.org/debian/pool/main/s/ssmtp/%{name}_%{version}.orig.tar.bz2
-# Source0-md5:	65b4e0df4934a6cd08c506cabcbe584f
-Patch0:		%{name}-nonsl.patch
-Patch1:		%{name}-ssl.patch
-Patch2:		%{name}-garbage_writes.patch
-Patch3:		%{name}-authpass.patch
-Patch4:		%{name}-validate-TLS-server-cert.patch
-Patch5:		defaultvalues.patch
-BuildRequires:	autoconf
-BuildRequires:	automake
+Source0:	https://github.com/Project-OSS-Revival/ssmtp/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	f9894703fcc559f63cffacfea08f9b75
+Patch0:		%{name}-no-self-signed.patch
+Patch1:		%{name}-addr-parse-bounds.patch
+URL:		https://github.com/Project-OSS-Revival/ssmtp
 BuildRequires:	openssl-devel
 Requires:	%{name}-base = %{version}-%{release}
 Provides:	smtpdaemon
@@ -68,19 +63,14 @@ należy do huba pocztowego z własnym administratorem.
 %setup -q
 %patch -P0 -p1
 %patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
-%patch -P4 -p1
-%patch -P5 -p1
 
 %build
-rm -f missing
-%{__aclocal}
-%{__autoconf}
-%configure2_13 \
+%configure \
 	--enable-ssl
 
 %{__make} \
+	CPPFLAGS="%{rpmcppflags}" \
+	LDFLAGS="%{rpmldflags}" \
 	SSMTPCONFDIR=%{_sysconfdir}/mail
 
 %install
